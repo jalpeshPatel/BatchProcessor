@@ -1,0 +1,88 @@
+﻿@using BatchProcessor.Models
+@model ProcessorViewModel
+@{
+    ViewBag.Title = "Processor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Processor</h2>
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Processor", "Home", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+
+                    
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Employers",
+                            Value = "Employers"
+
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "CSE",
+                            Value = "CSE",
+
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Hard",
+                            Value = "Hard"
+                        });
+                    
+
+                    <div class="form-group">
+                        <label class="col-md-5 control-label" for="SelectedDate">Select Carrier</label>
+
+
+                        <div class="col-md-5">
+                            @Html.DropDownListFor(model => model.SelectedFile, listItems, "-- Select Status --")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SelectedDate, new { @class = "col-md-5 control-label" })
+                        <div class="col-md-5">
+                            @*  @Html.EditorFor(m => m.SelectedDate, new { @class = "form-control" })*@
+                            @Html.TextBoxFor(m => m.SelectedDate, new { @id = "txtdatepicker", @style = "width:150px;", @placeholder = "mm/dd/yyyy" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-5 col-md-4">
+                            <input type="submit" value="Process" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@*<script src="~/Scripts/datepicker.js"></script>
+<link href="~/Content/datepicker.css" rel="stylesheet" />*@
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#logoutbutton").show();
+        $('#txtdatepicker').datepicker({
+            format: 'mm/dd/yyyy',
+            orientation: "bottom right"
+          
+        });
+    });
+
+</script>
+
+
